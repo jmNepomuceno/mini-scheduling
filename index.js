@@ -350,6 +350,8 @@ end_arrow_down_div.addEventListener('click' , arrowUpBtn)
 
 const proceed_btn = document.getElementById('proceed-btn')
 
+const left_section_A = document.getElementById('left-section-A')
+
 function arrowUpBtn(temp_id){
     start_or_end = temp_id.target.id
 
@@ -408,6 +410,10 @@ function arrowUpBtn(temp_id){
     }
 }
 
+String.prototype.splice = function(idx, rem, str) {
+    return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
+};
+
 proceed_btn.addEventListener('click' , function(){
     
     op = 9
@@ -433,8 +439,20 @@ proceed_btn.addEventListener('click' , function(){
             // create div element for every hour starting from start time bound to end time bound
             
             let current = parseFloat(person_A_time_bound[0])
-            let temp_current = null
-            person_A_time_bound_slice.push(current)
+
+            let temp_current = current
+
+            if(current < 10.0){
+                temp_current = "0" + current.toString() + "0"
+            }else{
+                temp_current = current.toString() + "0"
+            }
+
+            temp_current = temp_current.splice(2, 0 , ":")
+
+            temp_current += "0"
+
+            person_A_time_bound_slice.push(temp_current)
 
             while(current != parseFloat(person_A_time_bound[1])){
 
@@ -453,20 +471,29 @@ proceed_btn.addEventListener('click' , function(){
                     }
                 }
                 
-                temp_current = current
-
                 if(current < 10.0){
                     temp_current = "0" + current.toString() + "0"
                 }else{
                     temp_current = current.toString() + "0"
                 }
 
+                temp_current = temp_current.splice(2, 0 , ":")
+
+                temp_current += "0"
+
                 person_A_time_bound_slice.push(temp_current)
             }
             console.log(person_A_time_bound_slice)
-            console.log(true)
+            createElementTimeBound()
         }
     }, 100)
-    
-
 }, false)
+
+function createElementTimeBound(){
+    for(let i = 0; i < person_A_time_bound_slice.length; i++){
+        var time_bound_section = document.createElement("BUTTON")
+        time_bound_section.textContent = person_A_time_bound_slice[i]
+        time_bound_section.className = "left-tb-div-A"
+        left_section_A.appendChild(time_bound_section)
+    }
+}
