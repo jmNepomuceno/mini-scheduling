@@ -464,6 +464,7 @@ proceed_btn.addEventListener('click' , function(){
                 person_A_time_bound_slice.push(temp_current)
             }
             console.log(person_A_time_bound_slice)
+            Console.log(true)
         }
     }, 100)
     
