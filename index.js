@@ -351,7 +351,9 @@ end_arrow_down_div.addEventListener('click' , arrowUpBtn)
 const proceed_btn = document.getElementById('proceed-btn')
 
 const left_section_A = document.getElementById('left-section-A')
-
+const right_section_A = document.getElementById('right-section-A')
+const right_section_add_sched = document.getElementById('right-section-add-sched')
+let disable_r_s_add_sched_btn = false
 function arrowUpBtn(temp_id){
     start_or_end = temp_id.target.id
 
@@ -434,7 +436,7 @@ proceed_btn.addEventListener('click' , function(){
             temp_time_bound_end_a = temp_time_bound_end_a.replace(":" , ".")
             person_A_time_bound.push(temp_time_bound_end_a)
 
-            console.log(person_A_time_bound)
+            // console.log(person_A_time_bound)
 
             // create div element for every hour starting from start time bound to end time bound
             
@@ -483,10 +485,10 @@ proceed_btn.addEventListener('click' , function(){
 
                 person_A_time_bound_slice.push(temp_current)
             }
-            console.log(person_A_time_bound_slice)
+            // console.log(person_A_time_bound_slice)
             createElementTimeBound()
         }
-    }, 100)
+    }, 1)
 }, false)
 
 function createElementTimeBound(){
@@ -494,6 +496,41 @@ function createElementTimeBound(){
         var time_bound_section = document.createElement("BUTTON")
         time_bound_section.textContent = person_A_time_bound_slice[i]
         time_bound_section.className = "left-tb-div-A"
+        time_bound_section.style.fontSize = "22pt"
+        time_bound_section.style.fontFamily = "Arial"
+        
         left_section_A.appendChild(time_bound_section)
     }
 }
+
+right_section_add_sched.addEventListener('click' , function(){
+
+    let new_sched_div = document.createElement("DIV")
+    new_sched_div.className = "new-div-sched"
+
+    let new_sched_start_time = document.createElement("DIV")
+    new_sched_start_time.className = "new-div-sched-start-time"
+    new_sched_start_time.textContent = "left"
+
+    let new_sched_end_time = document.createElement("DIV")
+    new_sched_end_time.className = "new-div-sched-end-time"
+    new_sched_end_time.textContent = "right"
+
+    new_sched_div.appendChild(new_sched_start_time)
+    new_sched_div.appendChild(new_sched_end_time)
+    right_section_A.appendChild(new_sched_div)
+    
+    // if (disable_r_s_add_sched_btn){
+    //     right_section_add_sched.style.cursor = "grab"
+    //     right_section_add_sched.disabled = false;
+    //     disable_r_s_add_sched_btn = false
+        
+    // }else{
+    //     right_section_add_sched.disabled = true;
+    //     disable_r_s_add_sched_btn = true
+    //     right_section_add_sched.style.cursor = "pointer"
+    //     // add divs
+        
+    // }
+    
+}, false )
