@@ -508,17 +508,29 @@ right_section_add_sched.addEventListener('click' , function(){
     let new_sched_div = document.createElement("DIV")
     new_sched_div.className = "new-div-sched"
 
-    let new_sched_start_time = document.createElement("DIV")
+    let new_sched_start_time = document.createElement("a")
     new_sched_start_time.className = "new-div-sched-start-time"
-    new_sched_start_time.textContent = "left"
+    new_sched_start_time.textContent = "Start Time"
 
-    let new_sched_end_time = document.createElement("DIV")
+    let new_sched_end_time = document.createElement("a")
     new_sched_end_time.className = "new-div-sched-end-time"
-    new_sched_end_time.textContent = "right"
+    new_sched_end_time.textContent = "End Time"
 
     new_sched_div.appendChild(new_sched_start_time)
     new_sched_div.appendChild(new_sched_end_time)
     right_section_A.appendChild(new_sched_div)
+
+    for(let i = 0; i < 4; i++){
+        let start_span_element = document.createElement("span")
+        start_span_element.className = "start-time-span"
+        new_sched_start_time.appendChild(start_span_element)
+
+        let end_span_element = document.createElement("span")
+        end_span_element.className = "end-time-span"
+        new_sched_end_time.appendChild(end_span_element)
+    }
+
+    console.log(new_sched_end_time)
     
     // if (disable_r_s_add_sched_btn){
     //     right_section_add_sched.style.cursor = "grab"
