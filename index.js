@@ -353,7 +353,18 @@ const proceed_btn = document.getElementById('proceed-btn')
 const left_section_A = document.getElementById('left-section-A')
 const right_section_A = document.getElementById('right-section-A')
 const right_section_add_sched = document.getElementById('right-section-add-sched')
-let disable_r_s_add_sched_btn = false
+
+let time_bound_section;
+
+let new_sched_start_time;
+let new_sched_end_time;
+let choose_start_time_lbl
+let new_sched_click = 0
+
+let hover_time_bound = false
+let done_start_time_bound = false
+let done_end_time_bound = false
+
 function arrowUpBtn(temp_id){
     start_or_end = temp_id.target.id
 
@@ -425,8 +436,7 @@ proceed_btn.addEventListener('click' , function(){
         if(op == 0){
             clearInterval(fade_out_sub_main);
             sub_main.style.display = "none";
-            main.setAttribute("style","filter: blur(0px)");
-            main.setAttribute("style","-webkit-filter: blur(0px)");
+            main.setAttribute("style","display: block;");
 
             let temp_time_bound_start_a = time_bound_start_a.textContent
             temp_time_bound_start_a = temp_time_bound_start_a.replace(":" , ".")
@@ -450,9 +460,16 @@ proceed_btn.addEventListener('click' , function(){
                 temp_current = current.toString() + "0"
             }
 
-            temp_current = temp_current.splice(2, 0 , ":")
+            let temp_decimal = parseFloat(temp_current % 1)
+            temp_decimal = temp_decimal.toFixed(2)
 
-            temp_current += "0"
+            if(temp_decimal == 0.30){
+                temp_current = temp_current.replace("." , ":")
+            }else{
+                temp_current = temp_current.splice(2, 0 , ":")
+
+                temp_current += "0"
+            }
 
             person_A_time_bound_slice.push(temp_current)
 
@@ -479,13 +496,22 @@ proceed_btn.addEventListener('click' , function(){
                     temp_current = current.toString() + "0"
                 }
 
-                temp_current = temp_current.splice(2, 0 , ":")
+                temp_decimal = parseFloat(temp_current % 1)
+                temp_decimal = temp_decimal.toFixed(2)
 
-                temp_current += "0"
+                if(temp_decimal == 0.30){
+                    temp_current = temp_current.replace("." , ":")
+                }else{
+                    temp_current = temp_current.splice(2, 0 , ":")
+
+                    temp_current += "0"
+                }
+
+                
 
                 person_A_time_bound_slice.push(temp_current)
             }
-            // console.log(person_A_time_bound_slice)
+            console.log(person_A_time_bound_slice)
             createElementTimeBound()
         }
     }, 1)
@@ -493,34 +519,67 @@ proceed_btn.addEventListener('click' , function(){
 
 function createElementTimeBound(){
     for(let i = 0; i < person_A_time_bound_slice.length; i++){
-        var time_bound_section = document.createElement("BUTTON")
+        time_bound_section = document.createElement("BUTTON")
         time_bound_section.textContent = person_A_time_bound_slice[i]
         time_bound_section.className = "left-tb-div-A"
+        time_bound_section.id = "time-bound-" + (i + 1)
         time_bound_section.style.fontSize = "22pt"
         time_bound_section.style.fontFamily = "Arial"
+        time_bound_section.addEventListener('mouseover' , hoverTimeBound)
+        time_bound_section.addEventListener('click' , clickTimeBound)
         
         left_section_A.appendChild(time_bound_section)
     }
 }
 
-right_section_add_sched.addEventListener('click' , function(){
+function hoverTimeBound(time_bound_block){
+    if(hover_time_bound && !done_start_time_bound){
+        new_sched_start_time.textContent = time_bound_block.target.textContent
+    }else if(hover_time_bound && done_start_time_bound){
+        new_sched_end_time.textContent = time_bound_block.target.textContent
+    }
+}
 
+function clickTimeBound(time_bound_block){
+    if(hover_time_bound){
+        let remove_block = document.getElementById(time_bound_block.target.id)
+        remove_block.remove()
+        hover_time_bound = false
+        choose_start_time_lbl.textContent = "End at"
+
+        new_sched_end_time.style.opacity = "1"
+        new_sched_end_time.style.cursor = "pointer"
+
+        done_start_time_bound = true
+    }
+    
+}
+
+right_section_add_sched.addEventListener('click' , function(){
+    right_section_add_sched.style.pointerEvents = "none"
     let new_sched_div = document.createElement("DIV")
     new_sched_div.className = "new-div-sched"
 
-    let new_sched_start_time = document.createElement("a")
-    new_sched_start_time.className = "new-div-sched-start-time"
-    new_sched_start_time.textContent = "Start Time"
+    choose_start_time_lbl = document.createElement("label")
+    choose_start_time_lbl.id = "choose-start-time-lbl"
+    choose_start_time_lbl.textContent = "Start at"
+    new_sched_div.appendChild(choose_start_time_lbl)
 
-    let new_sched_end_time = document.createElement("a")
+    new_sched_start_time = document.createElement("a")
+    new_sched_start_time.className = "new-div-sched-start-time"
+    new_sched_start_time.addEventListener('click' , clickStartTime)
+    new_sched_start_time.textContent = "00:00"
+
+    new_sched_end_time = document.createElement("a")
     new_sched_end_time.className = "new-div-sched-end-time"
-    new_sched_end_time.textContent = "End Time"
+    new_sched_end_time.addEventListener('click' , clickEndTime)
+    new_sched_end_time.textContent = "00:00"
 
     new_sched_div.appendChild(new_sched_start_time)
     new_sched_div.appendChild(new_sched_end_time)
     right_section_A.appendChild(new_sched_div)
 
-    for(let i = 0; i < 4; i++){
+    for(let i = 1; i <= 3; i++){
         let start_span_element = document.createElement("span")
         start_span_element.className = "start-time-span"
         new_sched_start_time.appendChild(start_span_element)
@@ -529,20 +588,19 @@ right_section_add_sched.addEventListener('click' , function(){
         end_span_element.className = "end-time-span"
         new_sched_end_time.appendChild(end_span_element)
     }
-
-    console.log(new_sched_end_time)
-    
-    // if (disable_r_s_add_sched_btn){
-    //     right_section_add_sched.style.cursor = "grab"
-    //     right_section_add_sched.disabled = false;
-    //     disable_r_s_add_sched_btn = false
-        
-    // }else{
-    //     right_section_add_sched.disabled = true;
-    //     disable_r_s_add_sched_btn = true
-    //     right_section_add_sched.style.cursor = "pointer"
-    //     // add divs
-        
-    // }
-    
+ 
 }, false )
+
+function clickStartTime(){
+    new_sched_start_time.style.color = "rgba(255, 255, 255, 1)"
+    new_sched_start_time.style.pointerEvents = "none"
+
+    hover_time_bound = true
+}
+
+function clickEndTime(){
+    new_sched_end_time.style.color = "rgba(255, 255, 255, 1)"
+    new_sched_end_time.style.pointerEvents = "none"
+
+    hover_time_bound = true
+}

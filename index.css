@@ -6,17 +6,16 @@ body, html{
     padding: 0;
     box-sizing: border-box;
     overflow: auto;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .main{
     height:100%;
     width:100%;
-    /* background: url('imgs/map1.png');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover; */
-    /* filter: blur(8px);
-    -webkit-filter: blur(8px);  */
+    background-size: cover; 
+    /* display: none; */
 }
 
 .main-header{
@@ -52,7 +51,7 @@ body, html{
 .main #main-section-A #right-section-A{
     position: absolute;
     right:0;
-    border:1px solid blue;
+    border-left:1px solid black;
     width:65%;
     height:100%;
 }
@@ -92,15 +91,17 @@ body, html{
     color: rgba(255, 255, 255, 1);
 }
 
+.main #main-section-A #left-section-A .left-tb-div-A:focus{
+    outline: none;
+}
+
 .main #main-section-A #right-section-A #right-section-add-sched{
     width:100%;
-    /* height:6%; */
     height:8%;
-    border:1px solid black;
+    border-bottom:3px solid #262c37;
     font-size: 22pt;
     text-align: center;
-    /* line-height:50px; */
-    line-height:45px;
+    line-height: 240%;
     cursor: pointer;
 }
 
@@ -108,7 +109,17 @@ body, html{
     position: relative;
     width:100%;
     height: 15%;
-    border: 1px solid black;
+    background: #c3c9d5;
+    border-bottom: 3px solid #262c37;
+    
+}
+
+.main #main-section-A #right-section-A .new-div-sched #choose-start-time-lbl{
+    position: absolute;
+    top:5%;
+    left:40%;
+    font-size: 22pt;
+    text-align: center;
 }
 
 .main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time{
@@ -119,10 +130,13 @@ body, html{
     height:50%;
     color: rgba(255, 255, 255, 0.4);
     text-align: center;
-    line-height: 40px;
+    line-height: 230%;
     text-decoration: none;
     overflow: hidden;
     background: #262c37;
+    border-radius: 50px;
+    font-size: 22pt;
+    cursor: pointer;
 }
 
 .main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time{
@@ -133,21 +147,13 @@ body, html{
     height:50%;
     color: rgba(255, 255, 255, 0.4);
     text-align: center;
-    line-height: 40px;
+    line-height: 230%;
     text-decoration: none;
     overflow: hidden;
     background: #262c37;
-}
-
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time:before,
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time:before{
-    content: '';
-    position: absolute;
-    top:2px;
-    left: 2px;
-    bottom: 2px;
-    width:50%;
-    background: rgba(255 , 255, 255, 0.05);
+    border-radius: 50px;
+    font-size: 22pt;
+    opacity: 0.1;
 }
 
 .main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time:hover span:nth-child(1),
@@ -156,9 +162,9 @@ body, html{
     top:0;
     left:0;
     width:100%;
-    height:2px;
+    height:3px;
     background: linear-gradient(to right , #0c002b, #2894ff);
-    animation: animate1 2s linear infinite;
+    animation: animate1 2s linear infinite;;
 }
 
 @keyframes animate1{
@@ -170,25 +176,6 @@ body, html{
     }
 }
 
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time:hover span:nth-child(2),
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time:hover span:nth-child(2){
-    position: absolute;
-    top:0;
-    right:0;
-    width:2px;
-    height:100%;
-    background: linear-gradient(to bottom , #0c002b, #2894ff);
-    animation: animate2 2s linear infinite;
-}
-
-@keyframes animate2{
-    0%{
-        transform: translateY(-100%);
-    }
-    100%{
-        transform: translateY(100%);
-    }
-}
 
 .main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time:hover span:nth-child(3),
 .main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time:hover span:nth-child(3){
@@ -196,7 +183,7 @@ body, html{
     bottom:0;
     left:0;
     width:100%;
-    height:2px;
+    height:3px;
     background: linear-gradient(to left , #0c002b, #2894ff);
     animation: animate3 2s linear infinite;
 }
@@ -207,26 +194,6 @@ body, html{
     }
     100%{
         transform: translateX(-100%);
-    }
-}
-
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time:hover span:nth-child(4),
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time:hover span:nth-child(4){
-    position: absolute;
-    top:0;
-    left:0;
-    width:2px;
-    height:100%;
-    background: linear-gradient(to top , #0c002b, #2894ff);
-    animation: animate4 2s linear infinite;
-}
-
-@keyframes animate4{
-    0%{
-        transform: translateY(100%);
-    }
-    100%{
-        transform: translateY(-100%);
     }
 }
 
@@ -274,12 +241,12 @@ body, html{
     overflow: hidden;
     width:30%;
     height: 30%;
-    line-height: 60px;
+    line-height: 210%;
     text-align: center;
     color: rgba(255, 255, 255, 0.6);
     background: #262c37;
     letter-spacing: 2px;
-    font-size: 26px;
+    font-size: 36pt;
     border-radius: 20px;
     border:3px solid #2894ff;
 }
