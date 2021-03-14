@@ -354,6 +354,8 @@ const left_section_A = document.getElementById('left-section-A')
 const right_section_A = document.getElementById('right-section-A')
 const right_section_add_sched = document.getElementById('right-section-add-sched')
 
+let left_tb_div_A
+
 let new_sched_start_time;
 let new_sched_end_time;
 let choose_start_time_lbl
@@ -367,6 +369,8 @@ let temp_start_time_clicked
 
 let start_index = 0
 let end_index = 0
+
+let temp_person_A = []
 
 function arrowUpBtn(temp_id){
     start_or_end = temp_id.target.id
@@ -575,6 +579,12 @@ proceed_btn.addEventListener('click' , function(){
 
 
             }
+            person_A_time_bound_slice.splice(person_A_time_bound_slice.length - 1, 1)
+            person_A_time_bound_slice = [...new Set(person_A_time_bound_slice)]
+            // person_A_time_bound.push(person_A_time_bound_slice[0])
+            // person_A_time_bound.push(person_A_time_bound_slice[person_A_time_bound_slice.length - 1])
+            // console.log(person_A_time_bound)
+
             //console.log(person_A_time_bound_slice)
             createElementTimeBound()
         }
@@ -582,10 +592,11 @@ proceed_btn.addEventListener('click' , function(){
 }, false)
 
 function createElementTimeBound(){
-    for(let i = 0; i < person_A_time_bound_slice.length; i++){
+    for(let i = 0; i <= person_A_time_bound_slice.length; i++){
         time_bound_section = document.createElement("BUTTON")
         time_bound_section.textContent = person_A_time_bound_slice[i]
         time_bound_section.className = "left-tb-div-A"
+        left_tb_div_A = document.querySelectorAll('.left-tb-div-A')
         time_bound_section.id = "time-bound-" + (i + 1)
         time_bound_section.style.fontSize = "2vw"
         time_bound_section.style.fontFamily = "Arial"
@@ -594,6 +605,7 @@ function createElementTimeBound(){
         
         left_section_A.appendChild(time_bound_section)
     }
+    document.getElementById('time-bound-26').remove()
 }
 
 function hoverTimeBound(time_bound_block){
@@ -609,25 +621,21 @@ function clickTimeBound(time_bound_block){
 
         let remove_block = document.getElementById(time_bound_block.target.id)
 
-        let valid = true
-        for(let i = person_A_time_bound_slice.length; i > person_A_time_bound_slice.length - 3; i--){
-            if(time_bound_block.target.id == "time-bound-" + (i + 1)){
-                valid = false
-            }
-        }
-
-        if(done_start_time_bound == false && valid == true){
+        if(done_start_time_bound == false && time_bound_block.target.id != ("time-bound-" + person_A_time_bound_slice.length )){
 
             for(let i = 0; i < person_A_time_bound_slice.length; i++){
-                if(time_bound_block.target.id == "time-bound-" + (i + 1)){
+                if(time_bound_block.target.textContent == person_A_time_bound_slice[i]){
                     start_index = i
                     break
                 }
             }
+            //console.log(person_A_time_bound_slice)
+            //console.log(start_index)
+            temp_person_A.push(person_A_time_bound_slice[start_index])
 
             remove_block.remove()
             person_A_time_bound_slice.splice(start_index , 1)
-            // console.log(person_A_time_bound_slice)
+            //console.log(person_A_time_bound_slice)
 
             hover_time_bound = false
             choose_start_time_lbl.textContent = "End at"
@@ -642,39 +650,50 @@ function clickTimeBound(time_bound_block){
             let temp_end = parseFloat(remove_block.textContent)
 
             for(let i = 0; i <= person_A_time_bound_slice.length; i++){
-                if(time_bound_block.target.id == "time-bound-" + (i + 1)){
+                if(time_bound_block.target.textContent == person_A_time_bound_slice[i]){
                     end_index = i
                     break
                 }
             }
-            console.log(start_index + " " + end_index)
-            if(temp_end - temp_start >= 2.00){
 
-                for(let i = start_index + 1; i <= end_index; i++){
-                    let remove_blocks = document.getElementById("time-bound-" + (i + 1))
-                    remove_blocks.remove()
+            //console.log(start_index + " " + end_index)
+            //console.log(person_A_time_bound_slice)
+
+            for(let i = 0; i < left_tb_div_A.length; i++){
+                console.log(left_tb_div_A[i])
+                for(let j = start_index; j <= end_index; j++){
+                    if(left_tb_div_A[i].textContent == person_A_time_bound_slice[j]){
+                        left_tb_div_A[i].remove()
+                    }
                 }
-
-                for(let i = start_index; i < end_index; i++){
-                    person_A_time_bound_slice[i] = 0
-                }
-
-                person_A_time_bound_slice = person_A_time_bound_slice.filter(function(elem){
-                    return elem !=0
-                })
-
-                
-                console.log(person_A_time_bound_slice)
-
-                hover_time_bound = false
-                choose_start_time_lbl.textContent = "Your Schedule at"
-                choose_start_time_lbl.style.left = "25%"
-
-                right_section_add_sched.style.pointerEvents = "auto"
-                done_start_time_bound = false
-            }else{
-                alert("At least two hours interval")
             }
+
+            temp_person_A.push(person_A_time_bound_slice[end_index - 1])
+
+            for(let i = start_index; i <= end_index; i++){
+                person_A_time_bound_slice[i] = 0
+            }
+            //console.log(person_A_time_bound_slice)
+            person_A_time_bound_slice = person_A_time_bound_slice.filter(function(elem){
+                return elem !=0
+            })
+
+            
+            //console.log(person_A_time_bound_slice)
+
+            hover_time_bound = false
+            choose_start_time_lbl.textContent = "Your Schedule at"
+            choose_start_time_lbl.style.left = "25%"
+
+            right_section_add_sched.style.pointerEvents = "auto"
+            done_start_time_bound = false
+
+            temp_person_A[0] = temp_person_A[0].replace(":" , ".")
+            temp_person_A[1] = temp_person_A[1].replace(":" , ".")
+            person_A.push(temp_person_A)
+            temp_person_A = []
+            // console.log(person_A)
+                 
         }else{
             alert("At least two hours interval")
         }
@@ -730,7 +749,7 @@ function clickStartTime(){
 
     hover_time_bound = true
 
-    console.log(person_A_time_bound_slice)
+   // console.log(person_A_time_bound_slice)
 }
 
 function clickEndTime(){
