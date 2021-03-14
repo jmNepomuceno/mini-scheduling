@@ -354,8 +354,6 @@ const left_section_A = document.getElementById('left-section-A')
 const right_section_A = document.getElementById('right-section-A')
 const right_section_add_sched = document.getElementById('right-section-add-sched')
 
-let time_bound_section;
-
 let new_sched_start_time;
 let new_sched_end_time;
 let choose_start_time_lbl
@@ -364,6 +362,8 @@ let new_sched_click = 0
 let hover_time_bound = false
 let done_start_time_bound = false
 let done_end_time_bound = false
+
+let temp_start_time_clicked
 
 function arrowUpBtn(temp_id){
     start_or_end = temp_id.target.id
@@ -545,8 +545,29 @@ function clickTimeBound(time_bound_block){
 
         let remove_block = document.getElementById(time_bound_block.target.id)
 
-        if(done_start_time_bound == false){
+        let valid = true
+        let start_index = 0
+        let end_index = 0
+
+        for(let i = person_A_time_bound_slice.length; i > person_A_time_bound_slice.length - 3; i--){
+            if(time_bound_block.target.id == "time-bound-" + (i + 1)){
+                valid = false
+            }
+        }
+
+        if(done_start_time_bound == false && valid == true){
+
+            for(let i = 0; i < person_A_time_bound_slice.length; i++){
+                if(time_bound_block.target.id == "time-bound-" + (i + 1)){
+                    start_index = i
+                    break
+                }
+            }
+
             remove_block.remove()
+            person_A_time_bound_slice.splice(start_index , 1)
+            // console.log(person_A_time_bound_slice)
+
             hover_time_bound = false
             choose_start_time_lbl.textContent = "End at"
 
@@ -554,19 +575,47 @@ function clickTimeBound(time_bound_block){
             new_sched_end_time.style.cursor = "pointer"
 
             done_start_time_bound = true
-        }else{
-
+        }
+        else if(done_start_time_bound == true){
             let temp_start = parseFloat(new_sched_start_time.textContent)
             let temp_end = parseFloat(remove_block.textContent)
+
+            for(let i = 0; i < person_A_time_bound_slice.length; i++){
+                if(time_bound_block.target.id == "time-bound-" + (i + 1)){
+                    end_index = i
+                    break
+                }
+            }
+            console.log(start_index + " " + end_index)
             if(temp_end - temp_start >= 2.00){
-                remove_block.remove()
+
+                for(let i = start_index + 1; i <= end_index; i++){
+                    let remove_blocks = document.getElementById("time-bound-" + (i + 1))
+                    remove_blocks.remove()
+                }
+
+                for(let i = start_index; i < end_index; i++){
+                    person_A_time_bound_slice[i] = 0
+                }
+
+                person_A_time_bound_slice = person_A_time_bound_slice.filter(function(elem){
+                    return elem !=0
+                })
+
+                
+                console.log(person_A_time_bound_slice)
+
                 hover_time_bound = false
                 choose_start_time_lbl.textContent = "Your Schedule at"
                 choose_start_time_lbl.style.left = "25%"
 
                 right_section_add_sched.style.pointerEvents = "auto"
                 done_start_time_bound = false
+            }else{
+                alert("At least two hours interval")
             }
+        }else{
+            alert("At least two hours interval")
         }
    
     }
@@ -619,7 +668,8 @@ function clickStartTime(){
     new_sched_start_time.style.pointerEvents = "none"
 
     hover_time_bound = true
-    console.log("here")
+
+    console.log(person_A_time_bound_slice)
 }
 
 function clickEndTime(){
