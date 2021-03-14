@@ -365,6 +365,9 @@ let done_end_time_bound = false
 
 let temp_start_time_clicked
 
+let start_index = 0
+let end_index = 0
+
 function arrowUpBtn(temp_id){
     start_or_end = temp_id.target.id
 
@@ -463,15 +466,47 @@ proceed_btn.addEventListener('click' , function(){
             let temp_decimal = parseFloat(temp_current % 1)
             temp_decimal = temp_decimal.toFixed(2)
 
+            let temp_var_current
+
             if(temp_decimal == 0.30){
+                temp_var_current = temp_current
                 temp_current = temp_current.replace("." , ":")
             }else{
+                temp_var_current = temp_current.splice(2, 0 , ".")
                 temp_current = temp_current.splice(2, 0 , ":")
 
                 temp_current += "0"
             }
 
+            let temp_current_2 = parseFloat(temp_var_current) % 1
+            temp_current_2 = temp_current_2.toFixed(2)
+
+            if(temp_current_2 == 0.00){
+                temp_current_2 = parseFloat(temp_var_current) + 0.30
+            }else if(temp_current_2 == 0.30){
+                temp_current_2 = parseFloat(temp_var_current) + 0.70
+            }
+
+            let current_2 = temp_current_2
+            if(current_2 < 10.0){
+                temp_current_2 = "0" + current_2.toString() + "0"
+            }else{
+                temp_current_2 = current_2.toString() + "0"
+            }
+
+            temp_decimal = parseFloat(temp_current_2 % 1)
+            temp_decimal = temp_decimal.toFixed(2)
+
+            if(temp_decimal == 0.30){
+                temp_current_2 = temp_current_2.replace("." , ":")
+            }else{
+                temp_current_2 = temp_current_2.splice(2, 0 , ":")
+
+                temp_current_2 += "0"
+            }    
+
             person_A_time_bound_slice.push(temp_current)
+            person_A_time_bound_slice.push(temp_current_2)
 
             while(current != parseFloat(person_A_time_bound[1])){
 
@@ -500,16 +535,45 @@ proceed_btn.addEventListener('click' , function(){
                 temp_decimal = temp_decimal.toFixed(2)
 
                 if(temp_decimal == 0.30){
+                    temp_var_current = temp_current
                     temp_current = temp_current.replace("." , ":")
                 }else{
+                    temp_var_current = temp_current.splice(2, 0 , ".")
                     temp_current = temp_current.splice(2, 0 , ":")
 
                     temp_current += "0"
                 }
 
-                
+                let temp_current_2 = parseFloat(temp_var_current) % 1
+                temp_current_2 = temp_current_2.toFixed(2)
+                if(temp_current_2 == 0.00){
+                    temp_current_2 = parseFloat(temp_var_current) + 0.30
+                }else if(temp_current_2 == 0.30){
+                    temp_current_2 = parseFloat(temp_var_current) + 0.70
+                }
+
+                let current_2 = temp_current_2
+                if(current_2 < 10.0){
+                    temp_current_2 = "0" + current_2.toString() + "0"
+                }else{
+                    temp_current_2 = current_2.toString() + "0"
+                }
+
+                temp_decimal = parseFloat(temp_current_2 % 1)
+                temp_decimal = temp_decimal.toFixed(2)
+
+                if(temp_decimal == 0.30){
+                    temp_current_2 = temp_current_2.replace("." , ":")
+                }else{
+                    temp_current_2 = temp_current_2.splice(2, 0 , ":")
+
+                    temp_current_2 += "0"
+                }
 
                 person_A_time_bound_slice.push(temp_current)
+                person_A_time_bound_slice.push(temp_current_2)
+
+
             }
             //console.log(person_A_time_bound_slice)
             createElementTimeBound()
@@ -546,9 +610,6 @@ function clickTimeBound(time_bound_block){
         let remove_block = document.getElementById(time_bound_block.target.id)
 
         let valid = true
-        let start_index = 0
-        let end_index = 0
-
         for(let i = person_A_time_bound_slice.length; i > person_A_time_bound_slice.length - 3; i--){
             if(time_bound_block.target.id == "time-bound-" + (i + 1)){
                 valid = false
@@ -580,7 +641,7 @@ function clickTimeBound(time_bound_block){
             let temp_start = parseFloat(new_sched_start_time.textContent)
             let temp_end = parseFloat(remove_block.textContent)
 
-            for(let i = 0; i < person_A_time_bound_slice.length; i++){
+            for(let i = 0; i <= person_A_time_bound_slice.length; i++){
                 if(time_bound_block.target.id == "time-bound-" + (i + 1)){
                     end_index = i
                     break
