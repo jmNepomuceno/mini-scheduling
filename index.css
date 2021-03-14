@@ -15,7 +15,7 @@ body, html{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover; 
-    /* display: none; */
+    display: none;
 }
 
 .main-header{
@@ -46,6 +46,7 @@ body, html{
     left:0;
     width:35%;
     height:100%;
+    background: #262c37;
 }
 
 .main #main-section-A #right-section-A{
@@ -54,6 +55,7 @@ body, html{
     border-left:1px solid black;
     width:65%;
     height:100%;
+    background: #c3c9d5;
 }
 
 .main #main-section-B #left-section-B{
@@ -99,10 +101,11 @@ body, html{
     width:100%;
     height:8%;
     border-bottom:3px solid #262c37;
-    font-size: 22pt;
+    font-size: 2vw;
     text-align: center;
-    line-height: 240%;
+    line-height: 190%;
     cursor: pointer;
+    background: white;
 }
 
 .main #main-section-A #right-section-A .new-div-sched{
@@ -114,11 +117,18 @@ body, html{
     
 }
 
+.main #main-section-A #right-section-A .new-div-sched #start-to-end-lbl{
+    position: absolute;
+    top:45%;
+    left:47%;
+    font-size: 1.6vw;
+}
+
 .main #main-section-A #right-section-A .new-div-sched #choose-start-time-lbl{
     position: absolute;
     top:5%;
     left:40%;
-    font-size: 22pt;
+    font-size: 1.6vw;
     text-align: center;
 }
 
@@ -130,12 +140,12 @@ body, html{
     height:50%;
     color: rgba(255, 255, 255, 0.4);
     text-align: center;
-    line-height: 230%;
+    line-height: 180%;
     text-decoration: none;
     overflow: hidden;
     background: #262c37;
     border-radius: 50px;
-    font-size: 22pt;
+    font-size: 2vw;
     cursor: pointer;
 }
 
@@ -147,12 +157,12 @@ body, html{
     height:50%;
     color: rgba(255, 255, 255, 0.4);
     text-align: center;
-    line-height: 230%;
+    line-height: 180%;
     text-decoration: none;
     overflow: hidden;
     background: #262c37;
     border-radius: 50px;
-    font-size: 22pt;
+    font-size: 2vw;
     opacity: 0.1;
 }
 

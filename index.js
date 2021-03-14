@@ -511,7 +511,7 @@ proceed_btn.addEventListener('click' , function(){
 
                 person_A_time_bound_slice.push(temp_current)
             }
-            console.log(person_A_time_bound_slice)
+            //console.log(person_A_time_bound_slice)
             createElementTimeBound()
         }
     }, 1)
@@ -523,7 +523,7 @@ function createElementTimeBound(){
         time_bound_section.textContent = person_A_time_bound_slice[i]
         time_bound_section.className = "left-tb-div-A"
         time_bound_section.id = "time-bound-" + (i + 1)
-        time_bound_section.style.fontSize = "22pt"
+        time_bound_section.style.fontSize = "2vw"
         time_bound_section.style.fontFamily = "Arial"
         time_bound_section.addEventListener('mouseover' , hoverTimeBound)
         time_bound_section.addEventListener('click' , clickTimeBound)
@@ -542,15 +542,33 @@ function hoverTimeBound(time_bound_block){
 
 function clickTimeBound(time_bound_block){
     if(hover_time_bound){
+
         let remove_block = document.getElementById(time_bound_block.target.id)
-        remove_block.remove()
-        hover_time_bound = false
-        choose_start_time_lbl.textContent = "End at"
 
-        new_sched_end_time.style.opacity = "1"
-        new_sched_end_time.style.cursor = "pointer"
+        if(done_start_time_bound == false){
+            remove_block.remove()
+            hover_time_bound = false
+            choose_start_time_lbl.textContent = "End at"
 
-        done_start_time_bound = true
+            new_sched_end_time.style.opacity = "1"
+            new_sched_end_time.style.cursor = "pointer"
+
+            done_start_time_bound = true
+        }else{
+
+            let temp_start = parseFloat(new_sched_start_time.textContent)
+            let temp_end = parseFloat(remove_block.textContent)
+            if(temp_end - temp_start >= 2.00){
+                remove_block.remove()
+                hover_time_bound = false
+                choose_start_time_lbl.textContent = "Your Schedule at"
+                choose_start_time_lbl.style.left = "25%"
+
+                right_section_add_sched.style.pointerEvents = "auto"
+                done_start_time_bound = false
+            }
+        }
+   
     }
     
 }
@@ -559,6 +577,11 @@ right_section_add_sched.addEventListener('click' , function(){
     right_section_add_sched.style.pointerEvents = "none"
     let new_sched_div = document.createElement("DIV")
     new_sched_div.className = "new-div-sched"
+
+    let to = document.createElement("label")
+    to.id = "start-to-end-lbl"
+    to.textContent = "to"
+    new_sched_div.appendChild(to)
 
     choose_start_time_lbl = document.createElement("label")
     choose_start_time_lbl.id = "choose-start-time-lbl"
@@ -596,6 +619,7 @@ function clickStartTime(){
     new_sched_start_time.style.pointerEvents = "none"
 
     hover_time_bound = true
+    console.log("here")
 }
 
 function clickEndTime(){
