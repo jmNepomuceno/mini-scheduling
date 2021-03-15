@@ -5,7 +5,6 @@ body, html{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow: auto;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -47,6 +46,7 @@ body, html{
     width:35%;
     height:100%;
     background: #262c37;
+    overflow-y: scroll;
 }
 
 .main #main-section-A #right-section-A{
@@ -64,6 +64,7 @@ body, html{
     width:35%;
     height:100%;
     background: #262c37;
+    overflow-y: scroll;
 }
 
 .main #main-section-B #right-section-B{
@@ -75,12 +76,12 @@ body, html{
     background: #c3c9d5;
 }
 
-.main #main-section-A #left-section-A .left-tb-div-A{
+.main #main-section-A #left-section-A .left-tb-div-A , 
+.main #main-section-B #left-section-B .left-tb-div-B{
     width:100%;
     height:10%;
     cursor: pointer;
     position:relative;
-    display: inline-block;
     color: rgba(255, 255, 255, 0.4);
     background: #262c37;
     letter-spacing: 2px;
@@ -90,6 +91,11 @@ body, html{
     border: 1px solid #2894ff;
 }
 
+#left-section-A::-webkit-scrollbar, 
+#left-section-B::-webkit-scrollbar{
+    display: none;
+  }
+
 .main #main-section-A #left-section-A .left-tb-div-A:hover{
     color: rgba(255, 255, 255, 1);
 }
@@ -98,7 +104,8 @@ body, html{
     outline: none;
 }
 
-.main #main-section-A #right-section-A #right-section-add-sched{
+.main #main-section-A #right-section-A #right-section-add-sched,
+.main #main-section-B #right-section-B #right-section-add-sched-B{
     width:100%;
     height:8%;
     border-bottom:3px solid #262c37;

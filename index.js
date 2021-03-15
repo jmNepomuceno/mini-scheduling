@@ -368,6 +368,10 @@ const left_section_A = document.getElementById('left-section-A')
 const right_section_A = document.getElementById('right-section-A')
 const right_section_add_sched = document.getElementById('right-section-add-sched')
 
+const left_section_B = document.getElementById('left-section-B')
+const right_section_B = document.getElementById('right-section-B')
+const right_section_add_sched_B = document.getElementById('right-section-add-sched-B')
+
 let left_tb_div_A
 
 let new_sched_start_time;
@@ -791,7 +795,7 @@ proceed_btn.addEventListener('click' , function(){
 
             person_B_time_bound_slice.splice(person_B_time_bound_slice.length - 1, 1)
             person_B_time_bound_slice = [...new Set(person_B_time_bound_slice)]
-            console.log(person_B_time_bound_slice)
+
             createElementTimeBound()
         }
     }, 1)
@@ -812,6 +816,21 @@ function createElementTimeBound(){
         left_section_A.appendChild(time_bound_section)
     }
     document.getElementById('time-bound-' + (left_tb_div_A.length + 1)).remove()
+
+    for(let i = 0; i <= person_B_time_bound_slice.length; i++){
+        time_bound_section = document.createElement("BUTTON")
+        time_bound_section.textContent = person_B_time_bound_slice[i]
+        time_bound_section.className = "left-tb-div-B"
+        left_tb_div_B = document.querySelectorAll('.left-tb-div-B')
+        time_bound_section.id = "time-bound-b-" + (i + 1)
+        time_bound_section.style.fontSize = "2vw"
+        time_bound_section.style.fontFamily = "Arial"
+        time_bound_section.addEventListener('mouseover' , hoverTimeBound)
+        time_bound_section.addEventListener('click' , clickTimeBound)
+        
+        left_section_B.appendChild(time_bound_section)
+    }
+    document.getElementById('time-bound-b-' + (left_tb_div_B.length + 1)).remove()
 }
 
 function hoverTimeBound(time_bound_block){
