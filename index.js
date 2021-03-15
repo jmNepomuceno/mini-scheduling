@@ -521,13 +521,26 @@ proceed_btn.addEventListener('click' , function(){
             temp_time_bound_end_a = temp_time_bound_end_a.replace(":" , ".")
             person_A_time_bound.push(temp_time_bound_end_a)
 
+            // PERSON B
+            let temp_time_bound_start_b = time_bound_start_b.textContent
+            temp_time_bound_start_b = temp_time_bound_start_b.replace(":" , ".")
+            person_B_time_bound.push(temp_time_bound_start_b)
+
+            let temp_time_bound_end_b = time_bound_end_b.textContent
+            temp_time_bound_end_b = temp_time_bound_end_b.replace(":" , ".")
+            person_B_time_bound.push(temp_time_bound_end_b)
+
             // console.log(person_A_time_bound)
 
             // create div element for every hour starting from start time bound to end time bound
             
             let current = parseFloat(person_A_time_bound[0])
-
             let temp_current = current
+
+            // PERSON B
+            let current_B = parseFloat(person_B_time_bound[0])
+            let temp_current_B = current_B
+
 
             if(current < 10.0){
                 temp_current = "0" + current.toString() + "0"
@@ -535,10 +548,22 @@ proceed_btn.addEventListener('click' , function(){
                 temp_current = current.toString() + "0"
             }
 
+            // PERSON B
+            if(current_B < 10.0){
+                temp_current_B = "0" + current_B.toString() + "0"
+            }else{
+                temp_current_B = current_B.toString() + "0"
+            }
+
             let temp_decimal = parseFloat(temp_current % 1)
             temp_decimal = temp_decimal.toFixed(2)
-
             let temp_var_current
+
+            // PERSON B
+            let temp_decimal_B = parseFloat(temp_current_B % 1)
+            temp_decimal_B = temp_decimal_B.toFixed(2)
+            let temp_var_current_B
+
 
             if(temp_decimal == 0.30){
                 temp_var_current = temp_current
@@ -550,6 +575,17 @@ proceed_btn.addEventListener('click' , function(){
                 temp_current += "0"
             }
 
+            // PERSON B
+            if(temp_decimal_B == 0.30){
+                temp_var_current_B = temp_current_B
+                temp_current_B = temp_current_B.replace("." , ":")
+            }else{
+                temp_var_current_B = temp_current_B.splice(2, 0 , ".")
+                temp_current_B = temp_current_B.splice(2, 0 , ":")
+
+                temp_current_B += "0"
+            }
+
             let temp_current_2 = parseFloat(temp_var_current) % 1
             temp_current_2 = temp_current_2.toFixed(2)
 
@@ -559,11 +595,29 @@ proceed_btn.addEventListener('click' , function(){
                 temp_current_2 = parseFloat(temp_var_current) + 0.70
             }
 
+            // PERSON B
+            let temp_current_2_B = parseFloat(temp_var_current) % 1
+            temp_current_2_B = temp_current_2_B.toFixed(2)
+
+            if(temp_current_2_B == 0.00){
+                temp_current_2_B = parseFloat(temp_var_current_B) + 0.30
+            }else if(temp_current_2_B == 0.30){
+                temp_current_2_B = parseFloat(temp_var_current_B) + 0.70
+            }
+
             let current_2 = temp_current_2
             if(current_2 < 10.0){
                 temp_current_2 = "0" + current_2.toString() + "0"
             }else{
                 temp_current_2 = current_2.toString() + "0"
+            }
+
+            // PERSON B
+            let current_2_B = temp_current_2_B
+            if(current_2_B < 10.0){
+                temp_current_2_B = "0" + current_2_B.toString() + "0"
+            }else{
+                temp_current_2_B = current_2_B.toString() + "0"
             }
 
             temp_decimal = parseFloat(temp_current_2 % 1)
@@ -575,10 +629,25 @@ proceed_btn.addEventListener('click' , function(){
                 temp_current_2 = temp_current_2.splice(2, 0 , ":")
 
                 temp_current_2 += "0"
-            }    
+            }  
+            
+            // PERSON B
+            temp_decimal_B = parseFloat(temp_current_2_B % 1)
+            temp_decimal_B = temp_decimal_B.toFixed(2)
+
+            if(temp_decimal_B == 0.30){
+                temp_current_2_B = temp_current_2_B.replace("." , ":")
+            }else{
+                temp_current_2_B = temp_current_2_B.splice(2, 0 , ":")
+
+                temp_current_2_B += "0"
+            }
 
             person_A_time_bound_slice.push(temp_current)
             person_A_time_bound_slice.push(temp_current_2)
+
+            person_B_time_bound_slice.push(temp_current_B)
+            person_B_time_bound_slice.push(temp_current_2_B)
 
             while(current != parseFloat(person_A_time_bound[1])){
 
@@ -647,13 +716,82 @@ proceed_btn.addEventListener('click' , function(){
 
 
             }
+
+            // PERSON B
+            while(current_B != parseFloat(person_B_time_bound[1])){
+
+                if(current_B + 1.0 <= parseFloat(person_B_time_bound[1])){
+                    current_B += 1.0
+                }else{
+                    temp_current_B = current_B % 1
+                    temp_current_B = temp_current_B.toFixed(2)
+
+                    if(temp_current_B == 0.30){
+                        current_B += 0.70
+                    }else if(temp_current_B == 0.70){
+                        current_B += 0.30
+                    }else{
+                        current_B += 0.30
+                    }
+                }
+                
+                if(current_B < 10.0){
+                    temp_current_B = "0" + current_B.toString() + "0"
+                }else{
+                    temp_current_B = current_B.toString() + "0"
+                }
+
+                temp_decimal_B = parseFloat(temp_current_B % 1)
+                temp_decimal_B = temp_decimal_B.toFixed(2)
+
+                if(temp_decimal_B == 0.30){
+                    temp_var_current_B = temp_current_B
+                    temp_current_B = temp_current_B.replace("." , ":")
+                }else{
+                    temp_var_current_B = temp_current_B.splice(2, 0 , ".")
+                    temp_current_B = temp_current_B.splice(2, 0 , ":")
+
+                    temp_current_B += "0"
+                }
+
+                let temp_current_2_B = parseFloat(temp_var_current_B) % 1
+                temp_current_2_B = temp_current_2_B.toFixed(2)
+                if(temp_current_2_B == 0.00){
+                    temp_current_2_B = parseFloat(temp_var_current_B) + 0.30
+                }else if(temp_current_2_B == 0.30){
+                    temp_current_2_B = parseFloat(temp_var_current_B) + 0.70
+                }
+
+                let current_2_B = temp_current_2_B
+                if(current_2_B < 10.0){
+                    temp_current_2_B = "0" + current_2_B.toString() + "0"
+                }else{
+                    temp_current_2_B = current_2_B.toString() + "0"
+                }
+
+                temp_decimal_B = parseFloat(temp_current_2_B % 1)
+                temp_decimal_B = temp_decimal_B.toFixed(2)
+
+                if(temp_decimal_B == 0.30){
+                    temp_current_2_B = temp_current_2_B.replace("." , ":")
+                }else{
+                    temp_current_2_B = temp_current_2_B.splice(2, 0 , ":")
+
+                    temp_current_2_B += "0"
+                }
+
+                person_B_time_bound_slice.push(temp_current_B)
+                person_B_time_bound_slice.push(temp_current_2_B)
+
+
+            }
+
             person_A_time_bound_slice.splice(person_A_time_bound_slice.length - 1, 1)
             person_A_time_bound_slice = [...new Set(person_A_time_bound_slice)]
-            // person_A_time_bound.push(person_A_time_bound_slice[0])
-            // person_A_time_bound.push(person_A_time_bound_slice[person_A_time_bound_slice.length - 1])
-            // console.log(person_A_time_bound)
 
-            //console.log(person_A_time_bound_slice)
+            person_B_time_bound_slice.splice(person_B_time_bound_slice.length - 1, 1)
+            person_B_time_bound_slice = [...new Set(person_B_time_bound_slice)]
+            console.log(person_B_time_bound_slice)
             createElementTimeBound()
         }
     }, 1)
