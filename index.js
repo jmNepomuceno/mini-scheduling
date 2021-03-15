@@ -377,6 +377,11 @@ let left_tb_div_A
 let new_sched_start_time;
 let new_sched_end_time;
 let choose_start_time_lbl
+
+let new_sched_start_time_B;
+let new_sched_end_time_B;
+let choose_start_time_lbl_B
+
 let new_sched_click = 0
 
 let hover_time_bound = false
@@ -938,7 +943,7 @@ function clickTimeBound(time_bound_block){
 
                 new_sched_end_time.style.cursor = "none"
                 new_sched_end_time.textContent = "00:00"
-                alert("Already have meeting between those time")
+                alert("Invalid Time Schedule")
             }
             
                  
@@ -987,6 +992,47 @@ right_section_add_sched.addEventListener('click' , function(){
         let end_span_element = document.createElement("span")
         end_span_element.className = "end-time-span"
         new_sched_end_time.appendChild(end_span_element)
+    }
+ 
+}, false )
+
+right_section_add_sched_B.addEventListener('click' , function(){
+    right_section_add_sched_B.style.pointerEvents = "none"
+    let new_sched_div_B = document.createElement("DIV")
+    new_sched_div_B.className = "new-div-sched-B"
+
+    let to = document.createElement("label")
+    to.id = "start-to-end-lbl-B"
+    to.textContent = "to"
+    new_sched_div_B.appendChild(to)
+
+    choose_start_time_lbl_B = document.createElement("label")
+    choose_start_time_lbl_B.id = "choose-start-time-lbl-B"
+    choose_start_time_lbl_B.textContent = "Start at"
+    new_sched_div.appendChild(choose_start_time_lbl_B)
+
+    new_sched_start_time_B = document.createElement("a")
+    new_sched_start_time_B.className = "new-div-sched-start-time-B"
+    new_sched_start_time_B.addEventListener('click' , clickStartTime)
+    new_sched_start_time_B.textContent = "00:00"
+
+    new_sched_end_time_B = document.createElement("a")
+    new_sched_end_time_B.className = "new-div-sched-end-time-B"
+    new_sched_end_time_B.addEventListener('click' , clickEndTime)
+    new_sched_end_time_B.textContent = "00:00"
+
+    new_sched_div_B.appendChild(new_sched_start_time_B)
+    new_sched_div_B.appendChild(new_sched_end_time_B)
+    right_section_B.appendChild(new_sched_div_B)
+
+    for(let i = 1; i <= 3; i++){
+        let start_span_element_B = document.createElement("span")
+        start_span_element_B.className = "start-time-span-B"
+        new_sched_start_time_B.appendChild(start_span_element_B)
+
+        let end_span_element_B = document.createElement("span")
+        end_span_element_B.className = "end-time-span-B"
+        new_sched_end_time_B.appendChild(end_span_element_B)
     }
  
 }, false )

@@ -116,7 +116,8 @@ body, html{
     background: white;
 }
 
-.main #main-section-A #right-section-A .new-div-sched{
+.main #main-section-A #right-section-A .new-div-sched,
+.main #main-section-B #right-section-B .new-div-sched-B{
     position: relative;
     width:100%;
     height: 15%;
@@ -125,14 +126,16 @@ body, html{
     
 }
 
-.main #main-section-A #right-section-A .new-div-sched #start-to-end-lbl{
+.main #main-section-A #right-section-A .new-div-sched #start-to-end-lbl,
+.main #main-section-B #right-section-B .new-div-sched-B #start-to-end-lbl-B{
     position: absolute;
     top:45%;
     left:47%;
     font-size: 1.6vw;
 }
 
-.main #main-section-A #right-section-A .new-div-sched #choose-start-time-lbl{
+.main #main-section-A #right-section-A .new-div-sched #choose-start-time-lbl,
+.main #main-section-B #right-section-B .new-div-sched-B #choose-start-time-l-B{
     position: absolute;
     top:5%;
     left:40%;
