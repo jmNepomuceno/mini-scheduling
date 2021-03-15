@@ -217,67 +217,73 @@ body, html{
     background-color: white;
     border-radius: 20px;
     width:40%;
-    height:35%;
+    height:60%;
     font-family: Arial;
     /* visibility: hidden; */
 }
 
 .sub-main #header-div{
     width:100%;
-    height:40%;
+    height:20%;
 }
 
 .sub-main #header-div #start-day-lbl{
     position: absolute;
     text-align: center;
-    font-size: 22pt;
-    top:15%;
+    font-size: 2.3vw;
+    top:5%;
     left:15px;
 }
 
 .sub-main #header-div #end-day-lbl{
     position: absolute;
     text-align: center;
-    font-size: 22pt;
-    top:15%;
+    font-size: 2.3vw;
+    top:5%;
     right:15px;
 }
 
-.sub-main .time-bound-div #time-bound-start-a ,
-.sub-main .time-bound-div #time-bound-end-a
+.sub-main .time-bound-div .person-A-time-bound label{
+    position: absolute;
+    left:40%;
+    font-size: 2vw;
+}
+
+.sub-main .time-bound-div .person-A-time-bound #time-bound-start-a ,
+.sub-main .time-bound-div .person-A-time-bound #time-bound-end-a
 {
     position:absolute;
     display: inline-block;
     overflow: hidden;
     width:30%;
-    height: 30%;
-    line-height: 210%;
+    height: 18%;
     text-align: center;
     color: rgba(255, 255, 255, 0.6);
     background: #262c37;
     letter-spacing: 2px;
-    font-size: 36pt;
+    font-size: 3vw;
     border-radius: 20px;
     border:3px solid #2894ff;
+    top:30%;
 }
 
-.sub-main .time-bound-div #time-bound-start-a:focus ,
-.sub-main .time-bound-div #time-bound-end-a:focus{
+.sub-main .time-bound-div .person-A-time-bound #time-bound-start-a:focus ,
+.sub-main .time-bound-div .person-A-time-bound #time-bound-end-a:focus{
     outline: none;
 }
-.sub-main .time-bound-div #time-bound-start-a{
+.sub-main .time-bound-div .person-A-time-bound #time-bound-start-a{
     left:6%;
 }
 
-.sub-main .time-bound-div #time-bound-end-a{
+.sub-main .time-bound-div .person-A-time-bound #time-bound-end-a{
     right:6%;
 }
 
-.sub-main .time-bound-div #start-arrow-up-div{
+.sub-main .time-bound-div .person-A-time-bound #start-arrow-up-div-a{
     position: absolute;
     width: 0; 
     height: 0; 
-    top:45%;
+    top:33%;
     left:37%;
     cursor:pointer;
     border-left: 15px solid transparent;
@@ -286,11 +292,11 @@ body, html{
     border-bottom: 20px solid black;
 }
 
-.sub-main .time-bound-div #start-arrow-down-div{
+.sub-main .time-bound-div .person-A-time-bound #start-arrow-down-div-a{
     position: absolute;
     width: 0; 
     height: 0; 
-    top:57%;
+    top:40%;
     left:37%;
     cursor:pointer;
     border-left: 15px solid transparent;
@@ -299,11 +305,11 @@ body, html{
     border-top: 20px solid black;
 }
 
-.sub-main .time-bound-div #end-arrow-up-div{
+.sub-main .time-bound-div .person-A-time-bound #end-arrow-up-div-a{
     position: absolute;
     width: 0; 
     height: 0; 
-    top:45%;
+    top:33%;
     right:37%;
     cursor:pointer;
     border-left: 15px solid transparent;
@@ -312,11 +318,101 @@ body, html{
     border-bottom: 20px solid black;
 }
 
-.sub-main .time-bound-div #end-arrow-down-div{
+.sub-main .time-bound-div .person-A-time-bound #end-arrow-down-div-a{
     position: absolute;
     width: 0; 
     height: 0; 
-    top:57%;
+    top:40%;
+    right:37%;
+    cursor:pointer;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    
+    border-top: 20px solid black;
+}
+
+/*  */
+.sub-main .time-bound-div .person-B-time-bound label{
+    position: absolute;
+    top:50%;
+    left:40%;
+    font-size: 2vw;
+}
+
+.sub-main .time-bound-div .person-B-time-bound #time-bound-start-b ,
+.sub-main .time-bound-div .person-B-time-bound #time-bound-end-b
+{
+    position:absolute;
+    display: inline-block;
+    overflow: hidden;
+    width:30%;
+    height: 18%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    background: #262c37;
+    letter-spacing: 2px;
+    font-size: 3vw;
+    border-radius: 20px;
+    border:3px solid #2894ff;
+    top:60%;
+}
+
+.sub-main .time-bound-div .person-B-time-bound #time-bound-start-b:focus ,
+.sub-main .time-bound-div .person-B-time-bound #time-bound-end-b:focus{
+    outline: none;
+}
+.sub-main .time-bound-div .person-B-time-bound #time-bound-start-b{
+    left:6%;
+}
+
+.sub-main .time-bound-div .person-B-time-bound #time-bound-end-b{
+    right:6%;
+}
+
+.sub-main .time-bound-div .person-B-time-bound #start-arrow-up-div-b{
+    position: absolute;
+    width: 0; 
+    height: 0; 
+    top:63%;
+    left:37%;
+    cursor:pointer;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    
+    border-bottom: 20px solid black;
+}
+
+.sub-main .time-bound-div .person-B-time-bound #start-arrow-down-div-b{
+    position: absolute;
+    width: 0; 
+    height: 0; 
+    top:70%;
+    left:37%;
+    cursor:pointer;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    
+    border-top: 20px solid black;
+}
+
+.sub-main .time-bound-div .person-B-time-bound #end-arrow-up-div-b{
+    position: absolute;
+    width: 0; 
+    height: 0; 
+    top:63%;
+    right:37%;
+    cursor:pointer;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    
+    border-bottom: 20px solid black;
+}
+
+.sub-main .time-bound-div .person-B-time-bound #end-arrow-down-div-b{
+    position: absolute;
+    width: 0; 
+    height: 0; 
+    top:70%;
     right:37%;
     cursor:pointer;
     border-left: 15px solid transparent;
@@ -326,7 +422,7 @@ body, html{
 }
 
 .sub-main .time-bound-div #proceed-btn{
-    top:85%;
+    top:90%;
     left:50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
@@ -335,12 +431,11 @@ body, html{
     display: inline-block;
     overflow: hidden;
     width:25%;
-    height: 20%;
-    line-height: 43px;
+    height: 10%;
     text-align: center;
     color: black;
     letter-spacing: 2px;
-    font-size: 12pt;
+    font-size: 1.2vw;
     border-radius: 5px;
     border:3px solid  #262c37;
     font-weight: 600;

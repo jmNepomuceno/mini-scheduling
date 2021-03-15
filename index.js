@@ -338,15 +338,29 @@ const sub_main = document.querySelector('.sub-main')
 const time_bound_start_a = document.getElementById('time-bound-start-a')
 const time_bound_end_a = document.getElementById('time-bound-end-a')
 
-const start_arrow_up_div = document.getElementById('start-arrow-up-div')
-start_arrow_up_div.addEventListener('click' , arrowUpBtn)
-const start_arrow_down_div = document.getElementById('start-arrow-down-div')
-start_arrow_down_div.addEventListener('click' , arrowUpBtn)
+const start_arrow_up_div_a = document.getElementById('start-arrow-up-div-a')
+start_arrow_up_div_a.addEventListener('click' , arrowUpBtn)
+const start_arrow_down_div_a = document.getElementById('start-arrow-down-div-a')
+start_arrow_down_div_a.addEventListener('click' , arrowUpBtn)
 
-const end_arrow_up_div = document.getElementById('end-arrow-up-div')
-end_arrow_up_div.addEventListener('click' , arrowUpBtn)
-const end_arrow_down_div = document.getElementById('end-arrow-down-div')
-end_arrow_down_div.addEventListener('click' , arrowUpBtn)
+const end_arrow_up_div_a = document.getElementById('end-arrow-up-div-a')
+end_arrow_up_div_a.addEventListener('click' , arrowUpBtn)
+const end_arrow_down_div_a = document.getElementById('end-arrow-down-div-a')
+end_arrow_down_div_a.addEventListener('click' , arrowUpBtn)
+
+// 
+const time_bound_start_b = document.getElementById('time-bound-start-b')
+const time_bound_end_b = document.getElementById('time-bound-end-b')
+
+const start_arrow_up_div_b = document.getElementById('start-arrow-up-div-b')
+start_arrow_up_div_b.addEventListener('click' , arrowUpBtn)
+const start_arrow_down_div_b = document.getElementById('start-arrow-down-div-b')
+start_arrow_down_div_b.addEventListener('click' , arrowUpBtn)
+
+const end_arrow_up_div_b = document.getElementById('end-arrow-up-div-b')
+end_arrow_up_div_b.addEventListener('click' , arrowUpBtn)
+const end_arrow_down_div_b = document.getElementById('end-arrow-down-div-b')
+end_arrow_down_div_b.addEventListener('click' , arrowUpBtn)
 
 const proceed_btn = document.getElementById('proceed-btn')
 
@@ -376,21 +390,29 @@ function arrowUpBtn(temp_id){
     start_or_end = temp_id.target.id
 
     let val = null
-    if (start_or_end == 'start-arrow-up-div' || start_or_end == 'start-arrow-down-div'){
+    if (start_or_end == 'start-arrow-up-div-a' || start_or_end == 'start-arrow-down-div-a'){
         val = time_bound_start_a.textContent;   
     }
-    else if(start_or_end == 'end-arrow-up-div' || start_or_end == 'end-arrow-down-div'){
+    else if(start_or_end == 'end-arrow-up-div-a' || start_or_end == 'end-arrow-down-div-a'){
         val = time_bound_end_a.textContent;
     }
+
+    // person B
+    if (start_or_end == 'start-arrow-up-div-b' || start_or_end == 'start-arrow-down-div-b'){
+        val = time_bound_start_b.textContent;   
+    }
+    else if(start_or_end == 'end-arrow-up-div-b' || start_or_end == 'end-arrow-down-div-b'){
+        val = time_bound_end_b.textContent;
+    }
  
-    if(((start_or_end == 'start-arrow-up-div' || start_or_end == 'end-arrow-up-div') && val != "24:00") || 
-    ((start_or_end == 'start-arrow-down-div' || start_or_end == 'end-arrow-down-div') && val != "00:00")){ 
+    if(((start_or_end == 'start-arrow-up-div-a' || start_or_end == 'end-arrow-up-div-a') && val != "24:00") || 
+    ((start_or_end == 'start-arrow-down-div-a' || start_or_end == 'end-arrow-down-div-a') && val != "00:00")){ 
         val = val.replace(":" , ".")
 
         let temp_val = val % 1
         temp_val = temp_val.toFixed(2)
 
-        if (start_or_end == 'start-arrow-up-div' || start_or_end == 'end-arrow-up-div'){
+        if (start_or_end == 'start-arrow-up-div-a' || start_or_end == 'end-arrow-up-div-a'){
             if(temp_val == 0.30){
                 val = parseFloat(val) + 0.70
             }
@@ -401,7 +423,7 @@ function arrowUpBtn(temp_id){
                 val = parseFloat(val) + 0.30
             }
         }
-        else if(start_or_end == 'start-arrow-down-div' || start_or_end == 'end-arrow-down-div'){
+        else if(start_or_end == 'start-arrow-down-div-a' || start_or_end == 'end-arrow-down-div-a'){
             if(temp_val == 0.30){
                 val = parseFloat(val) - 0.30
             }
@@ -421,10 +443,56 @@ function arrowUpBtn(temp_id){
 
         val = val.replace("." , ":")
 
-        if (start_or_end == 'start-arrow-up-div' || start_or_end == 'start-arrow-down-div'){
+        if (start_or_end == 'start-arrow-up-div-a' || start_or_end == 'start-arrow-down-div-a'){
             time_bound_start_a.textContent = val
         }else{
             time_bound_end_a.textContent = val
+        }
+        
+    }
+
+    if(((start_or_end == 'start-arrow-up-div-b' || start_or_end == 'end-arrow-up-div-b') && val != "24:00") || 
+    ((start_or_end == 'start-arrow-down-div-b' || start_or_end == 'end-arrow-down-div-b') && val != "00:00")){ 
+        val = val.replace(":" , ".")
+
+        let temp_val = val % 1
+        temp_val = temp_val.toFixed(2)
+
+        if (start_or_end == 'start-arrow-up-div-b' || start_or_end == 'end-arrow-up-div-b'){
+            if(temp_val == 0.30){
+                val = parseFloat(val) + 0.70
+            }
+            else if(temp_val == 0.70){
+                val = parseFloat(val) + 0.30
+            }
+            else{
+                val = parseFloat(val) + 0.30
+            }
+        }
+        else if(start_or_end == 'start-arrow-down-div-b' || start_or_end == 'end-arrow-down-div-b'){
+            if(temp_val == 0.30){
+                val = parseFloat(val) - 0.30
+            }
+            else if(temp_val == 0.70){
+                val = parseFloat(val) - 0.70
+            }
+            else{
+                val = parseFloat(val) - 0.70
+            }
+        }
+  
+        val = val.toFixed(2)
+     
+        if(val < 10.0){
+            val = "0" + val.toString()
+        }
+
+        val = val.replace("." , ":")
+
+        if (start_or_end == 'start-arrow-up-div-b' || start_or_end == 'start-arrow-down-div-b'){
+            time_bound_start_b.textContent = val
+        }else{
+            time_bound_end_b.textContent = val
         }
         
     }
@@ -691,8 +759,8 @@ function clickTimeBound(time_bound_block){
                 })
     
                 hover_time_bound = false
-                choose_start_time_lbl.textContent = "Your Schedule at"
-                choose_start_time_lbl.style.left = "25%"
+                choose_start_time_lbl.textContent = "Your have a meeting at"
+                choose_start_time_lbl.style.left = "15%"
     
                 right_section_add_sched.style.pointerEvents = "auto"
                 done_start_time_bound = false
