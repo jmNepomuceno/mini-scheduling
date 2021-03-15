@@ -641,6 +641,7 @@ function clickTimeBound(time_bound_block){
             choose_start_time_lbl.textContent = "End at"
 
             new_sched_end_time.style.opacity = "1"
+            new_sched_end_time.style.pointerEvents = "auto"
             new_sched_end_time.style.cursor = "pointer"
 
             done_start_time_bound = true
@@ -656,43 +657,59 @@ function clickTimeBound(time_bound_block){
                 }
             }
 
-            //console.log(start_index + " " + end_index)
-            //console.log(person_A_time_bound_slice)
+            let valid = true
 
-            for(let i = 0; i < left_tb_div_A.length; i++){
-                console.log(left_tb_div_A[i])
-                for(let j = start_index; j <= end_index; j++){
-                    if(left_tb_div_A[i].textContent == person_A_time_bound_slice[j]){
-                        left_tb_div_A[i].remove()
-                    }
+            for(let elem of person_A){
+                if(parseFloat(new_sched_start_time.textContent.replace(":" , ".")) < parseFloat(elem[0])
+                && parseFloat(elem[1]) < parseFloat(person_A_time_bound_slice[end_index + 1])){
+                    valid = false
                 }
             }
 
-            temp_person_A.push(person_A_time_bound_slice[end_index - 1])
+            if(valid){
+                for(let i = 0; i < left_tb_div_A.length; i++){
+                    for(let j = start_index; j <= end_index; j++){
+                        if(left_tb_div_A[i].textContent == person_A_time_bound_slice[j]){
+                            left_tb_div_A[i].remove()
+                        }
+                    }
+                }
+    
+                temp_person_A.push(person_A_time_bound_slice[end_index])
+    
+                for(let i = start_index; i <= end_index; i++){
+                    person_A_time_bound_slice[i] = 0
+                }
+                person_A_time_bound_slice = person_A_time_bound_slice.filter(function(elem){
+                    return elem !=0
+                })
+    
+                hover_time_bound = false
+                choose_start_time_lbl.textContent = "Your Schedule at"
+                choose_start_time_lbl.style.left = "25%"
+    
+                right_section_add_sched.style.pointerEvents = "auto"
+                done_start_time_bound = false
+    
+                temp_person_A[0] = temp_person_A[0].replace(":" , ".")
+                temp_person_A[1] = temp_person_A[1].replace(":" , ".")
+                person_A.push(temp_person_A)
+                temp_person_A = []
+                console.log(person_A)
+            }else{
+                done_start_time_bound = false
+                hover_time_bound = false
+                choose_start_time_lbl.textContent = "Start at"
+                new_sched_start_time.textContent = "00:00"
+                new_sched_start_time.style.pointerEvents = "auto"
+                new_sched_start_time.style.color = "rgba(255, 255, 255, 0.4)"
+                new_sched_end_time.style.opacity = "0.1"
 
-            for(let i = start_index; i <= end_index; i++){
-                person_A_time_bound_slice[i] = 0
+                new_sched_end_time.style.cursor = "none"
+                new_sched_end_time.textContent = "00:00"
+                alert("Already have meeting between those time")
             }
-            //console.log(person_A_time_bound_slice)
-            person_A_time_bound_slice = person_A_time_bound_slice.filter(function(elem){
-                return elem !=0
-            })
-
             
-            //console.log(person_A_time_bound_slice)
-
-            hover_time_bound = false
-            choose_start_time_lbl.textContent = "Your Schedule at"
-            choose_start_time_lbl.style.left = "25%"
-
-            right_section_add_sched.style.pointerEvents = "auto"
-            done_start_time_bound = false
-
-            temp_person_A[0] = temp_person_A[0].replace(":" , ".")
-            temp_person_A[1] = temp_person_A[1].replace(":" , ".")
-            person_A.push(temp_person_A)
-            temp_person_A = []
-            // console.log(person_A)
                  
         }else{
             alert("At least two hours interval")
