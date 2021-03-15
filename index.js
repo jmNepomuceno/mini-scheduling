@@ -1009,7 +1009,7 @@ right_section_add_sched_B.addEventListener('click' , function(){
     choose_start_time_lbl_B = document.createElement("label")
     choose_start_time_lbl_B.id = "choose-start-time-lbl-B"
     choose_start_time_lbl_B.textContent = "Start at"
-    new_sched_div.appendChild(choose_start_time_lbl_B)
+    new_sched_div_B.appendChild(choose_start_time_lbl_B)
 
     new_sched_start_time_B = document.createElement("a")
     new_sched_start_time_B.className = "new-div-sched-start-time-B"
