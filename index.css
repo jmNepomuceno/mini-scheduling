@@ -61,17 +61,18 @@ body, html{
 .main #main-section-B #left-section-B{
     position: absolute;
     right:0;
-    border:1px solid green;
     width:35%;
     height:100%;
+    background: #262c37;
 }
 
 .main #main-section-B #right-section-B{
     position: absolute;
     left:0;
-    border:1px solid blue;
+    border-left:1px solid black;
     width:65%;
     height:100%;
+    background: #c3c9d5;
 }
 
 .main #main-section-A #left-section-A .left-tb-div-A{
