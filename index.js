@@ -50,7 +50,7 @@ let person_B_free_time = []
 
 let available_time = []
 
-
+const see_available_time = document.getElementById('see-available-btn')
 
 function getFreeTime(person , person_x){
 
@@ -331,6 +331,8 @@ function getAvailableTime(){
 
     console.log(temp_available_time)
 }
+
+see_available_time.addEventListener('click' , getAvailableTime , false)
 
 const main = document.querySelector('.main')
 const sub_main = document.querySelector('.sub-main')
