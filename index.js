@@ -388,12 +388,26 @@ let hover_time_bound = false
 let done_start_time_bound = false
 let done_end_time_bound = false
 
+let hover_time_bound_B = false
+let done_start_time_bound_B = false
+let done_end_time_bound_B = false
+
 let temp_start_time_clicked
 
 let start_index = 0
 let end_index = 0
 
+let temp_start_index = 0
+let temp_remove_index
+
+let temp_start_index_B = 0
+let temp_remove_index_B
+
+let start_index_B = 0
+let end_index_B = 0
+
 let temp_person_A = []
+let temp_person_B = []
 
 function arrowUpBtn(temp_id){
     start_or_end = temp_id.target.id
@@ -605,7 +619,7 @@ proceed_btn.addEventListener('click' , function(){
             }
 
             // PERSON B
-            let temp_current_2_B = parseFloat(temp_var_current) % 1
+            let temp_current_2_B = parseFloat(temp_var_current_B) % 1
             temp_current_2_B = temp_current_2_B.toFixed(2)
 
             if(temp_current_2_B == 0.00){
@@ -734,7 +748,6 @@ proceed_btn.addEventListener('click' , function(){
                 }else{
                     temp_current_B = current_B % 1
                     temp_current_B = temp_current_B.toFixed(2)
-
                     if(temp_current_B == 0.30){
                         current_B += 0.70
                     }else if(temp_current_B == 0.70){
@@ -831,7 +844,7 @@ function createElementTimeBound(){
         time_bound_section.style.fontSize = "2vw"
         time_bound_section.style.fontFamily = "Arial"
         time_bound_section.addEventListener('mouseover' , hoverTimeBound)
-        time_bound_section.addEventListener('click' , clickTimeBound)
+        time_bound_section.addEventListener('click' , clickTimeBound_B)
         
         left_section_B.appendChild(time_bound_section)
     }
@@ -843,6 +856,12 @@ function hoverTimeBound(time_bound_block){
         new_sched_start_time.textContent = time_bound_block.target.textContent
     }else if(hover_time_bound && done_start_time_bound){
         new_sched_end_time.textContent = time_bound_block.target.textContent
+    }
+
+    if(hover_time_bound_B && !done_start_time_bound_B){
+        new_sched_start_time_B.textContent = time_bound_block.target.textContent
+    }else if(hover_time_bound_B && done_start_time_bound_B){
+        new_sched_end_time_B.textContent = time_bound_block.target.textContent
     }
 }
 
@@ -863,8 +882,8 @@ function clickTimeBound(time_bound_block){
             //console.log(start_index)
             temp_person_A.push(person_A_time_bound_slice[start_index])
 
-            remove_block.remove()
-            person_A_time_bound_slice.splice(start_index , 1)
+            temp_remove = remove_block
+            temp_start_index = start_index
             //console.log(person_A_time_bound_slice)
 
             hover_time_bound = false
@@ -889,7 +908,7 @@ function clickTimeBound(time_bound_block){
 
             let not_in_between = true
             let valid_sched = true
-
+            console.log(parseFloat(person_A_time_bound_slice[end_index]))
             for(let elem of person_A){
                 if(parseFloat(new_sched_start_time.textContent.replace(":" , ".")) < parseFloat(elem[0])
                 && parseFloat(elem[1]) < parseFloat(person_A_time_bound_slice[end_index + 1])){
@@ -903,17 +922,20 @@ function clickTimeBound(time_bound_block){
             }
 
             if(not_in_between && valid_sched){
+                temp_remove.remove()
+                person_A_time_bound_slice.splice(temp_start_index , 1)
+
                 for(let i = 0; i < left_tb_div_A.length; i++){
-                    for(let j = start_index; j <= end_index; j++){
+                    for(let j = start_index; j < end_index; j++){
                         if(left_tb_div_A[i].textContent == person_A_time_bound_slice[j]){
                             left_tb_div_A[i].remove()
                         }
                     }
                 }
-    
-                temp_person_A.push(person_A_time_bound_slice[end_index])
-    
-                for(let i = start_index; i <= end_index; i++){
+
+                temp_person_A.push(person_A_time_bound_slice[end_index - 1])
+
+                for(let i = start_index; i < end_index; i++){
                     person_A_time_bound_slice[i] = 0
                 }
                 person_A_time_bound_slice = person_A_time_bound_slice.filter(function(elem){
@@ -943,6 +965,122 @@ function clickTimeBound(time_bound_block){
 
                 new_sched_end_time.style.cursor = "none"
                 new_sched_end_time.textContent = "00:00"
+
+                temp_person_A = []
+                alert("Invalid Time Schedule")
+            }
+            
+                 
+        }else{
+            alert("At least two hours interval")
+        }
+   
+    }
+    
+}
+
+function clickTimeBound_B(time_bound_block){
+    if(hover_time_bound_B){
+
+        let remove_block = document.getElementById(time_bound_block.target.id)
+
+        if(done_start_time_bound_B == false && time_bound_block.target.id != ("time-bound-b" + person_B_time_bound_slice.length )){
+
+            for(let i = 0; i < person_B_time_bound_slice.length; i++){
+                if(time_bound_block.target.textContent == person_B_time_bound_slice[i]){
+                    start_index_B = i
+                    break
+                }
+            }
+            //console.log(person_A_time_bound_slice)
+            //console.log(start_index)
+            temp_person_B.push(person_B_time_bound_slice[start_index_B])
+
+            temp_remove_B = remove_block
+            temp_start_index_B = start_index_B
+            //console.log(person_A_time_bound_slice)
+
+            hover_time_bound_B = false
+            choose_start_time_lbl_B.textContent = "End at"
+
+            new_sched_end_time_B.style.opacity = "1"
+            new_sched_end_time_B.style.pointerEvents = "auto"
+            new_sched_end_time_B.style.cursor = "pointer"
+
+            done_start_time_bound_B = true
+        }
+        else if(done_start_time_bound_B == true){
+            let temp_start = parseFloat(new_sched_start_time_B.textContent)
+            let temp_end = parseFloat(remove_block.textContent)
+
+            for(let i = 0; i <= person_B_time_bound_slice.length; i++){
+                if(time_bound_block.target.textContent == person_B_time_bound_slice[i]){
+                    end_index_B = i
+                    break
+                }
+            }
+
+            let not_in_between = true
+            let valid_sched = true
+
+            for(let elem of person_B){
+                if(parseFloat(new_sched_start_time_B.textContent.replace(":" , ".")) < parseFloat(elem[0])
+                && parseFloat(elem[1]) < parseFloat(person_B_time_bound_slice[end_index_B + 1])){
+                    not_in_between = false
+                }
+            }
+
+
+            if(parseFloat(new_sched_start_time_B.textContent.replace(":" , ".")) > temp_end){
+                valid_sched = false
+            }
+
+            if(not_in_between && valid_sched){
+                temp_remove_B.remove()
+                person_B_time_bound_slice.splice(temp_start_index_B , 1)
+
+                for(let i = 0; i < left_tb_div_B.length; i++){
+                    for(let j = start_index_B; j < end_index_B; j++){
+                        if(left_tb_div_B[i].textContent == person_B_time_bound_slice[j]){
+                            left_tb_div_B[i].remove()
+                        }
+                    }
+                }
+    
+                temp_person_B.push(person_B_time_bound_slice[end_index_B - 1])
+    
+                for(let i = start_index_B; i < end_index_B; i++){
+                    person_B_time_bound_slice[i] = 0
+                }
+                person_B_time_bound_slice = person_B_time_bound_slice.filter(function(elem){
+                    return elem !=0
+                })
+    
+                hover_time_bound_B = false
+                choose_start_time_lbl_B.textContent = "Your have a meeting at"
+                choose_start_time_lbl_B.style.left = "15%"
+    
+                right_section_add_sched_B.style.pointerEvents = "auto"
+                done_start_time_bound_B = false
+    
+                temp_person_B[0] = temp_person_B[0].replace(":" , ".")
+                temp_person_B[1] = temp_person_B[1].replace(":" , ".")
+                person_B.push(temp_person_B)
+                temp_person_B = []
+                console.log(person_B)
+            }else{
+                done_start_time_bound_B = false
+                hover_time_bound_B = false
+                choose_start_time_lbl_B.textContent = "Start at"
+                new_sched_start_time_B.textContent = "00:00"
+                new_sched_start_time_B.style.pointerEvents = "auto"
+                new_sched_start_time_B.style.color = "rgba(255, 255, 255, 0.4)"
+                new_sched_end_time_B.style.opacity = "0.1"
+
+                new_sched_end_time_B.style.cursor = "none"
+                new_sched_end_time_B.textContent = "00:00"
+
+                temp_person_B = []
                 alert("Invalid Time Schedule")
             }
             
@@ -1013,12 +1151,12 @@ right_section_add_sched_B.addEventListener('click' , function(){
 
     new_sched_start_time_B = document.createElement("a")
     new_sched_start_time_B.className = "new-div-sched-start-time-B"
-    new_sched_start_time_B.addEventListener('click' , clickStartTime)
+    new_sched_start_time_B.addEventListener('click' , clickStartTime_B)
     new_sched_start_time_B.textContent = "00:00"
 
     new_sched_end_time_B = document.createElement("a")
     new_sched_end_time_B.className = "new-div-sched-end-time-B"
-    new_sched_end_time_B.addEventListener('click' , clickEndTime)
+    new_sched_end_time_B.addEventListener('click' , clickEndTime_B)
     new_sched_end_time_B.textContent = "00:00"
 
     new_sched_div_B.appendChild(new_sched_start_time_B)
@@ -1042,8 +1180,6 @@ function clickStartTime(){
     new_sched_start_time.style.pointerEvents = "none"
 
     hover_time_bound = true
-
-   // console.log(person_A_time_bound_slice)
 }
 
 function clickEndTime(){
@@ -1051,4 +1187,18 @@ function clickEndTime(){
     new_sched_end_time.style.pointerEvents = "none"
 
     hover_time_bound = true
+}
+
+function clickStartTime_B(){
+    new_sched_start_time_B.style.color = "rgba(255, 255, 255, 1)"
+    new_sched_start_time_B.style.pointerEvents = "none"
+
+    hover_time_bound_B = true
+}
+
+function clickEndTime_B(){
+    new_sched_end_time_B.style.color = "rgba(255, 255, 255, 1)"
+    new_sched_end_time_B.style.pointerEvents = "none"
+
+    hover_time_bound_B = true
 }

@@ -96,11 +96,13 @@ body, html{
     display: none;
   }
 
-.main #main-section-A #left-section-A .left-tb-div-A:hover{
+.main #main-section-A #left-section-A .left-tb-div-A:hover,
+.main #main-section-B #left-section-B .left-tb-div-B:hover{
     color: rgba(255, 255, 255, 1);
 }
 
-.main #main-section-A #left-section-A .left-tb-div-A:focus{
+.main #main-section-A #left-section-A .left-tb-div-A:focus,
+.main #main-section-B #left-section-B .left-tb-div-B:focus{
     outline: none;
 }
 
@@ -143,7 +145,8 @@ body, html{
     text-align: center;
 }
 
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time{
+.main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time,
+.main #main-section-B #right-section-B .new-div-sched-B .new-div-sched-start-time-B{
     position: absolute;
     top:40%;
     left:5%;
@@ -160,7 +163,8 @@ body, html{
     cursor: pointer;
 }
 
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time{
+.main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time,
+.main #main-section-B #right-section-B .new-div-sched-B .new-div-sched-end-time-B{
     position: absolute;
     top:40%;
     right:5%;
@@ -178,7 +182,9 @@ body, html{
 }
 
 .main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time:hover span:nth-child(1),
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time:hover span:nth-child(1){
+.main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time:hover span:nth-child(1),
+.main #main-section-B #right-section-B .new-div-sched-B .new-div-sched-end-time-B:hover span:nth-child(1),
+.main #main-section-B #right-section-B .new-div-sched-B .new-div-sched-start-time-B:hover span:nth-child(1){
     position: absolute;
     top:0;
     left:0;
@@ -199,7 +205,9 @@ body, html{
 
 
 .main #main-section-A #right-section-A .new-div-sched .new-div-sched-end-time:hover span:nth-child(3),
-.main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time:hover span:nth-child(3){
+.main #main-section-A #right-section-A .new-div-sched .new-div-sched-start-time:hover span:nth-child(3),
+.main #main-section-B #right-section-B .new-div-sched-B .new-div-sched-end-time-B:hover span:nth-child(3),
+.main #main-section-B #right-section-B .new-div-sched-B .new-div-sched-start-time-B:hover span:nth-child(3){
     position: absolute;
     bottom:0;
     left:0;
