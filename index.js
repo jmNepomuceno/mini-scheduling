@@ -374,6 +374,8 @@ const left_section_B = document.getElementById('left-section-B')
 const right_section_B = document.getElementById('right-section-B')
 const right_section_add_sched_B = document.getElementById('right-section-add-sched-B')
 
+const left_free_time = document.getElementById('left-free-time')
+
 let left_tb_div_A
 
 let new_sched_start_time;
@@ -956,6 +958,9 @@ function clickTimeBound(time_bound_block){
                 person_A.push(temp_person_A)
                 temp_person_A = []
                 console.log(person_A)
+
+                addLeftFreeTimeDiv()
+
             }else{
                 done_start_time_bound = false
                 hover_time_bound = false
@@ -979,6 +984,13 @@ function clickTimeBound(time_bound_block){
    
     }
     
+}
+
+function addLeftFreeTimeDiv(){
+    console.log(true)
+    let temp_div = document.createElement("div")
+    temp_div.className = "left-free-time-divs"
+    left_free_time.appendChild(temp_div)
 }
 
 function clickTimeBound_B(time_bound_block){
