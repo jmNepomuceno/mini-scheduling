@@ -253,13 +253,13 @@ function getFreeTime(person , person_x){
 }
 
 function getAvailableTime(){
-    getFreeTime(person_A, "person_a")
-    console.log(person_A_free_time)
+    // getFreeTime(person_A, "person_a")
+    // console.log(person_A_free_time)
 
-    getFreeTime(person_B, "person_b")
-    console.log(person_B_free_time)
+    // getFreeTime(person_B, "person_b")
+    // console.log(person_B_free_time)
 
-    console.log()
+    // console.log()
 
     for(let i = 0; i < person_A_free_time.length; i++){
         for(let j = 0; j < person_B_free_time.length; j++){
@@ -375,6 +375,12 @@ const right_section_B = document.getElementById('right-section-B')
 const right_section_add_sched_B = document.getElementById('right-section-add-sched-B')
 
 const left_free_time = document.getElementById('left-free-time')
+const left_free_time_p = document.querySelector('#left-free-time p')
+
+const right_free_time = document.getElementById('right-free-time')
+const right_free_time_p = document.querySelector('#right-free-time p')
+
+const final_available_time_p = document.querySelector('#available-time p')
 
 let left_tb_div_A
 
@@ -412,6 +418,9 @@ let end_index_B = 0
 
 let temp_person_A = []
 let temp_person_B = []
+
+let temp_left_free_time_div
+let temp_right_free_time_div
 
 function arrowUpBtn(temp_id){
     start_or_end = temp_id.target.id
@@ -873,8 +882,9 @@ function clickTimeBound(time_bound_block){
     if(hover_time_bound){
 
         let remove_block = document.getElementById(time_bound_block.target.id)
-
-        if(done_start_time_bound == false && time_bound_block.target.id != ("time-bound-" + person_A_time_bound_slice.length )){
+        //console.log(time_bound_block.target.textContent )
+        //console.log(person_A_time_bound_slice[person_A_time_bound_slice.length - 1])
+        if(done_start_time_bound == false && time_bound_block.target.textContent != person_A_time_bound_slice[person_A_time_bound_slice.length - 1]){
 
             for(let i = 0; i < person_A_time_bound_slice.length; i++){
                 if(time_bound_block.target.textContent == person_A_time_bound_slice[i]){
@@ -912,7 +922,7 @@ function clickTimeBound(time_bound_block){
 
             let not_in_between = true
             let valid_sched = true
-            console.log(parseFloat(person_A_time_bound_slice[end_index]))
+            
             for(let elem of person_A){
                 if(parseFloat(new_sched_start_time.textContent.replace(":" , ".")) < parseFloat(elem[0])
                 && parseFloat(elem[1]) < parseFloat(person_A_time_bound_slice[end_index + 1])){
@@ -957,8 +967,13 @@ function clickTimeBound(time_bound_block){
                 temp_person_A[1] = temp_person_A[1].replace(":" , ".")
                 person_A.push(temp_person_A)
                 temp_person_A = []
-                console.log(person_A)
+                //console.log(person_A)
 
+                left_free_time_p.style.cursor = "pointer"
+                left_free_time_p.style.pointerEvents = "auto"
+                left_free_time_p.style.color = "green"
+
+                getFreeTime(person_A, "person_a")
                 addLeftFreeTimeDiv()
 
             }else{
@@ -987,10 +1002,31 @@ function clickTimeBound(time_bound_block){
 }
 
 function addLeftFreeTimeDiv(){
-    console.log(true)
-    let temp_div = document.createElement("div")
-    temp_div.className = "left-free-time-divs"
-    left_free_time.appendChild(temp_div)
+
+    if(temp_left_free_time_div){
+        for(let i = 0; i < person_A.length - 1; i++){
+            document.getElementById("left-free-time-divs-" + (i + 1)).remove()
+        }
+        
+    }
+
+    for(let i = 0; i < person_A.length; i++){
+        temp_left_free_time_div = document.createElement("div")
+        temp_left_free_time_div.className = "left-free-time-divs"
+        temp_left_free_time_div.id = "left-free-time-divs-" + (i + 1)
+        temp_left_free_time_div.textContent = "kyla"
+        left_free_time.appendChild(temp_left_free_time_div)
+    }
+
+    if(temp_left_free_time_div && temp_right_free_time_div){
+        console.log("ehe")
+        final_available_time_p.style.cursor = "pointer"
+        final_available_time_p.style.pointerEvents = "auto"
+        final_available_time_p.style.color = "red"
+        
+        getAvailableTime()
+    }
+    available_time = []
 }
 
 function clickTimeBound_B(time_bound_block){
@@ -998,7 +1034,7 @@ function clickTimeBound_B(time_bound_block){
 
         let remove_block = document.getElementById(time_bound_block.target.id)
 
-        if(done_start_time_bound_B == false && time_bound_block.target.id != ("time-bound-b" + person_B_time_bound_slice.length )){
+        if(done_start_time_bound_B == false && time_bound_block.target.textContent != person_B_time_bound_slice[person_B_time_bound_slice.length - 1]){
 
             for(let i = 0; i < person_B_time_bound_slice.length; i++){
                 if(time_bound_block.target.textContent == person_B_time_bound_slice[i]){
@@ -1081,7 +1117,14 @@ function clickTimeBound_B(time_bound_block){
                 temp_person_B[1] = temp_person_B[1].replace(":" , ".")
                 person_B.push(temp_person_B)
                 temp_person_B = []
-                console.log(person_B)
+                //console.log(person_B)
+                right_free_time_p.style.cursor = "pointer"
+                right_free_time_p.style.pointerEvents = "auto"
+                right_free_time_p.style.color = "green"
+
+                getFreeTime(person_B, "person_b")
+                addRightFreeTimeDiv()
+
             }else{
                 done_start_time_bound_B = false
                 hover_time_bound_B = false
@@ -1106,6 +1149,37 @@ function clickTimeBound_B(time_bound_block){
     }
     
 }
+
+function addRightFreeTimeDiv(){
+
+    if(temp_right_free_time_div){
+        for(let i = 0; i < person_B.length - 1; i++){
+            document.getElementById("right-free-time-divs-" + (i + 1)).remove()
+        }
+    }
+
+    for(let i = 0; i < person_B.length; i++){
+        temp_right_free_time_div = document.createElement("div")
+        temp_right_free_time_div.className = "right-free-time-divs"
+        temp_right_free_time_div.id = "right-free-time-divs-" + (i + 1)
+        temp_right_free_time_div.textContent = "kyla"
+        right_free_time.appendChild(temp_right_free_time_div)
+    }
+
+    if(temp_left_free_time_div && temp_right_free_time_div){
+        console.log("ehe")
+        final_available_time_p.style.cursor = "pointer"
+        final_available_time_p.style.pointerEvents = "auto"
+        final_available_time_p.style.color = "red"
+        
+        getAvailableTime()
+    }
+
+    available_time = []
+
+}
+
+
 
 right_section_add_sched.addEventListener('click' , function(){
     right_section_add_sched.style.pointerEvents = "none"
