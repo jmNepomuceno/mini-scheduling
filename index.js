@@ -1175,6 +1175,9 @@ final_available_time_p.addEventListener('click' , function(){
             div.textContent = "Kyla"
 
             final_available_time.appendChild(div)
+
+            left_free_time_p.style.pointerEvents = "none"
+            right_free_time_p.style.pointerEvents = "none"
         }
     }
 } , false)
