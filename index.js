@@ -49,6 +49,7 @@ let person_A_free_time = []
 let person_B_free_time = []
 
 let available_time = []
+let temp_available_time = []
 
 const see_available_time = document.getElementById('see-available-btn')
 
@@ -321,7 +322,7 @@ function getAvailableTime(){
             }
         }
     }
-    let temp_available_time = []
+    
     for (elem of available_time){
         let temp = [parseFloat(elem[0]) , parseFloat(elem[1])]
         if (!temp_available_time.includes(temp)){
@@ -380,6 +381,7 @@ const left_free_time_p = document.querySelector('#left-free-time p')
 const right_free_time = document.getElementById('right-free-time')
 const right_free_time_p = document.querySelector('#right-free-time p')
 
+const final_available_time = document.getElementById('available-time')
 const final_available_time_p = document.querySelector('#available-time p')
 
 let left_tb_div_A
@@ -972,9 +974,7 @@ function clickTimeBound(time_bound_block){
                 left_free_time_p.style.cursor = "pointer"
                 left_free_time_p.style.pointerEvents = "auto"
                 left_free_time_p.style.color = "green"
-
-                getFreeTime(person_A, "person_a")
-                addLeftFreeTimeDiv()
+        
 
             }else{
                 done_start_time_bound = false
@@ -1001,33 +1001,27 @@ function clickTimeBound(time_bound_block){
     
 }
 
-function addLeftFreeTimeDiv(){
 
-    if(temp_left_free_time_div){
-        for(let i = 0; i < person_A.length - 1; i++){
-            document.getElementById("left-free-time-divs-" + (i + 1)).remove()
+left_free_time_p.addEventListener('click' , function(){
+    if(confirm("Both schedule is done?")){
+        getFreeTime(person_A, "person_a")
+
+        for(let i = 0; i < person_A_free_time.length; i++){
+            let div = document.createElement("div")
+            div.className = 'left-free-time-divs'
+            div.id = "left-free-time-divs-" + (i + 1)
+            div.textContent = "Kyla"
+
+            left_free_time.appendChild(div)
         }
-        
-    }
 
-    for(let i = 0; i < person_A.length; i++){
-        temp_left_free_time_div = document.createElement("div")
-        temp_left_free_time_div.className = "left-free-time-divs"
-        temp_left_free_time_div.id = "left-free-time-divs-" + (i + 1)
-        temp_left_free_time_div.textContent = "kyla"
-        left_free_time.appendChild(temp_left_free_time_div)
-    }
-
-    if(temp_left_free_time_div && temp_right_free_time_div){
-        console.log("ehe")
         final_available_time_p.style.cursor = "pointer"
         final_available_time_p.style.pointerEvents = "auto"
         final_available_time_p.style.color = "red"
-        
-        getAvailableTime()
+
+        right_section_add_sched.style.pointerEvents = "none"
     }
-    available_time = []
-}
+} , false)
 
 function clickTimeBound_B(time_bound_block){
     if(hover_time_bound_B){
@@ -1122,8 +1116,6 @@ function clickTimeBound_B(time_bound_block){
                 right_free_time_p.style.pointerEvents = "auto"
                 right_free_time_p.style.color = "green"
 
-                getFreeTime(person_B, "person_b")
-                addRightFreeTimeDiv()
 
             }else{
                 done_start_time_bound_B = false
@@ -1150,35 +1142,42 @@ function clickTimeBound_B(time_bound_block){
     
 }
 
-function addRightFreeTimeDiv(){
+right_free_time_p.addEventListener('click' , function(){
+    if(confirm("Both schedule is done?")){
+        getFreeTime(person_B, "person_b")
 
-    if(temp_right_free_time_div){
-        for(let i = 0; i < person_B.length - 1; i++){
-            document.getElementById("right-free-time-divs-" + (i + 1)).remove()
+        for(let i = 0; i < person_B_free_time.length; i++){
+            let div = document.createElement("div")
+            div.className = 'right-free-time-divs'
+            div.id = "right-free-time-divs-" + (i + 1)
+            div.textContent = "Kyla"
+
+            right_free_time.appendChild(div)
         }
-    }
 
-    for(let i = 0; i < person_B.length; i++){
-        temp_right_free_time_div = document.createElement("div")
-        temp_right_free_time_div.className = "right-free-time-divs"
-        temp_right_free_time_div.id = "right-free-time-divs-" + (i + 1)
-        temp_right_free_time_div.textContent = "kyla"
-        right_free_time.appendChild(temp_right_free_time_div)
-    }
-
-    if(temp_left_free_time_div && temp_right_free_time_div){
-        console.log("ehe")
         final_available_time_p.style.cursor = "pointer"
         final_available_time_p.style.pointerEvents = "auto"
         final_available_time_p.style.color = "red"
-        
-        getAvailableTime()
+
+        right_section_add_sched_B.style.pointerEvents = "none"
     }
+} , false)
 
-    available_time = []
+final_available_time_p.addEventListener('click' , function(){
+    if(confirm("Schedule a meeting for both of you?")){
 
-}
+        getAvailableTime()
 
+        for(let i = 0; i < temp_available_time.length; i++){
+            let div = document.createElement("div")
+            div.className = 'final-available-time-divs'
+            div.id = "final-available-time-divs-" + (i + 1)
+            div.textContent = "Kyla"
+
+            final_available_time.appendChild(div)
+        }
+    }
+} , false)
 
 
 right_section_add_sched.addEventListener('click' , function(){
