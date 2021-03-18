@@ -1010,7 +1010,7 @@ left_free_time_p.addEventListener('click' , function(){
             let div = document.createElement("div")
             div.className = 'left-free-time-divs'
             div.id = "left-free-time-divs-" + (i + 1)
-            div.textContent = "Kyla"
+            div.textContent = person_A_free_time[i][0] + " to " + person_A_free_time[i][1]
 
             left_free_time.appendChild(div)
         }
@@ -1150,7 +1150,7 @@ right_free_time_p.addEventListener('click' , function(){
             let div = document.createElement("div")
             div.className = 'right-free-time-divs'
             div.id = "right-free-time-divs-" + (i + 1)
-            div.textContent = "Kyla"
+            div.textContent = person_B_free_time[i][0] + " to " + person_B_free_time[i][1]
 
             right_free_time.appendChild(div)
         }
@@ -1172,7 +1172,7 @@ final_available_time_p.addEventListener('click' , function(){
             let div = document.createElement("div")
             div.className = 'final-available-time-divs'
             div.id = "final-available-time-divs-" + (i + 1)
-            div.textContent = "Kyla"
+            div.textContent = temp_available_time[i][0] + " to " + temp_available_time[i][1]
 
             final_available_time.appendChild(div)
 
