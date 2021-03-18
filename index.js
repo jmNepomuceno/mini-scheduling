@@ -254,13 +254,22 @@ function getFreeTime(person , person_x){
 }
 
 function getAvailableTime(){
-    // getFreeTime(person_A, "person_a")
     // console.log(person_A_free_time)
 
-    // getFreeTime(person_B, "person_b")
-    // console.log(person_B_free_time)
+    // for(let i = 1; i <= 2; i++){
+    //     let temp_arr = person_A_free_time
+    //     for(let j = 0; j < temp_arr.length; j++){
 
-    // console.log()
+    //         let first_decimal = temp_arr[i][0] % 1
+    //         first_decimal = first_decimal.toFixed(2)
+
+    //         if(first_decimal == 0.30){
+
+    //         }
+
+    //     }
+    // }
+    // let temp_decimal = 
 
     for(let i = 0; i < person_A_free_time.length; i++){
         for(let j = 0; j < person_B_free_time.length; j++){
